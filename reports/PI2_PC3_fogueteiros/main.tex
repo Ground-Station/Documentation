@@ -1,0 +1,49 @@
+\input{fixos/pacotes}
+\input{fixos/comandos}
+\usepackage{fixos/customizacoes}
+\usepackage{verbatim}
+\usepackage{listings}
+
+\lstset{
+  language=JSON,
+  basicstyle=\small,
+  breaklines=true
+  }
+
+\input{editaveis/informacoes}
+\input{fixos/informacoes}
+\input{fixos/setup}
+
+
+
+\begin{document}
+
+\frenchspacing 
+\imprimircapa
+\imprimirfolhaderosto*
+
+
+\input{editaveis/geral/resumo.tex}
+\input{fixos/listasAutomaticas}
+\input{editaveis/geral/abreviaturas.tex}
+\input{fixos/indiceAutomatico}
+
+\textual
+
+\input{editaveis/contextualizacao/contextualizacao.tex}
+
+%Aqui está sendo incluído o controle de secções
+\input{editaveis/solucao/solucao.tex}
+
+\bookmarksetup{startatroot} 
+
+\postextual
+
+\bibliography{editaveis/outros/bibliografia} 
+\input{editaveis/geral/apendices.tex}
+\input{editaveis/geral/anexos.tex}
+\printindex
+\end{document}
+
+
+
