@@ -1,0 +1,439 @@
+\chapter{Energia}
+
+\par A solução de energia do projeto consiste no dimensionamento de baterias que atendam às especificações e requisitos do sistema, tanto dos dispositivos eletrônicos quanto do sistema de ignição e lançamento. Além disso, é projetado um carregador de bateria para tornar contínuo o uso do equipamento.
+
+\par Para dimensionar o consumo do sistema, foi observado o gasto energético dos componentes eletrônicos, levando em conta que o projeto precisa de uma autonomia de, no mínimo, duas horas de uso sem a possibilidade de ter como fonte de energia a rede elétrica.
+
+\par Anteriormente, ao dimensionar o sistema de alimentação do projeto, foi definido que seria utilizada apenas uma bateria que alimentasse todos os componentes. Porém, ao avaliar melhor as necessidades do projeto, em especial a distância de segurança (500 m) entre o usuário e a base de lançamento do foguete, optou-se por dimensionar dois sistemas, de forma a eliminar a utilização de cabos para alimentar os componentes que precisariam estar na base.
+
+\par A utilização de cabos entre a base e o sistema de controle, além de não ser viável do ponto de vista do usuário, também provocaria impactos a serem considerados no projeto, como a queda de tensão atrelada a um cabo de grande extensão como o que seria necessário.
+
+\par Sendo assim, para aumentar a qualidade e melhorar a usabilidade do produto, foi definido que o projeto será composto por dois sistemas: o sistema de controle e o sistema da base. Cada sistema será alimentado eletricamente de forma individual. Os dois sistemas estarão interligados por telemetria, conforme descrito na solução de eletrônica, e serão controlados pelo usuário, que utilizará o sistema de controle (maleta) a uma distância segura da base de lançamento.
+
+\section{Ignição}
+\label{sec:ignição}
+
+\par Para dimensionar o sistema de alimentação elétrica do projeto, é necessário realizar o dimensionamento do consumo de potência do ignitor, que faz parte do sistema da base de lançamento. O tipo de ignitor utilizado pela CRT é o fio de Níquel Cromo (Ni-Cr), os cálculos foram realizados com base nesse tipo de ignitor.
+
+\par Para o ignitor de Níquel Cromo foi considerado o diâmetro de 0,80  $mm^2$ e temperatura de ignição de 300ºC, a CTR não dispunha dessas informações, mas esses foram os parâmetros mais comuns encontrados para esse tipo de sistema \cite{edufer2020}.  
+
+\par No site do fabricante \cite{ignitor}, há uma tabela que permite, com a entrada desses dados, obter a resistência (em Ohm/m). A partir desse dado, utilizando a primeira Lei de Ohm, com o valor de tensão fornecido pela bateria (12V) será calculada a corrente consumida pelo ignitor.
+
+\par A resistência obtida por meio da tabela do fabricante é de 2,23 Ohms/m, considerando um enrolamento de 1m, a resistência do ignitor é 2,23 Ohms. A corrente pode ser descrita de acordo com a primeira Lei de Ohm:
+
+\begin{center}
+\begin{equation}
+ I = \frac{V} {R} 
+ \end{equation}
+ 
+ \begin{equation}
+ I = \frac{12} {0,23}
+ \end{equation}
+ 
+ \begin{equation}
+ I = 5,38 A
+\end{equation}
+\end{center}
+
+\par Com o valor da corrente obtido e com base na relação entre corrente, tensão e potência, pode ser calculada a potência consumida.
+
+\begin{center}
+\begin{equation}\label{m}
+	P = I \times V 
+    \end{equation}
+    
+ \begin{equation}
+  P =  5,38 \times 12 
+  \end{equation}
+  
+  \begin{equation}
+  P = 64,56 W 
+\end{equation}
+\end{center}
+
+\par O ignitor será utilizado somente uma vez a cada lançamento, e apenas para o momento de ignição do foguete. Para fins de segurança, de forma a garantir a autonomia do sistema, será adotado o tempo de utilização de 15 minutos.
+
+\section{Consumo dos sistemas}
+
+\par Como especificado anteriormente o projeto é separado por dois sistemas, a maleta e a base de lançamento. Nas tabelas \ref{tab:consumo1} e \ref{tab:consumo2} é apresentado o consumo dos principais componentes elétricos e eletrônicos de cada um dos dois sistemas e uma estimativa do período que cada componente será utilizado durante um lançamento. 
+
+\begin{center}
+\begin{table}[H]
+\centering
+\begin{tabular}{ |m{4cm}|m{2cm}|m{2cm}|m{2cm}|m{3cm}|} 
+\hline
+\textbf{Componentes}&\textbf{Tensão} & \textbf{Corrente}& \textbf{Potência} & \textbf{Tempo de Utilização}\\ 
+ \hline
+ Tela & 12V & 1A & 12W & 2h30m\\
+  \hline
+Jetson Nano Developer Kit & 5V & 2A & 10W & 2h30m\\
+  \hline
+ Teclado e botões & 5V & 250 mA & 1,25W & 2h30m\\ 
+  \hline
+ Módulo LORA - maleta & 5V & 500mA & 2,50W &2h30m\\ 
+ \hline
+ 
+ \hline
+\end{tabular}
+\caption{Consumo elétrico dos componentes da maleta.}
+\label{tab:consumo1}
+\end{table}
+\end{center}
+
+\par Com base na tabela \ref{tab:consumo1}, o somatório de potências do sistema é de 25,75W. Será utilizado o valor de 30 W por segurança. O lançamento de um foguete tem duração média de 2 horas, o valor utilizado será de 2 horas e 30 minutos, por segurança.
+
+\par Sendo assim, o somatório da potência é multiplicado pelo tempo em horas.
+
+\begin{equation}
+    30W \times 2,50h = 75 Wh
+\end{equation}
+
+\begin{center}
+\begin{table}[H]
+\centering
+\begin{tabular}{ |m{4cm}|m{2cm}|m{2cm}|m{2cm}|m{3cm}|} 
+\hline
+\textbf{ Componentes }&\textbf{ Tensão} & \textbf{Corrente }& \textbf{Potência} & \textbf{Tempo de Utilização}\\ 
+ \hline
+ Módulo LORA - base & 5V & 500mA & 2,50W & 2h5m\\ 
+ \hline
+ Ignitor (Ni-Cr) & 12V & 5,38A & 64,56W & 15m \\
+ \hline
+ Atuadores (3x) & 12V & 3,90A & 46,80W & 15m \\ 
+ \hline
+\end{tabular}
+\caption{Consumo elétrico dos componentes da base de lançamento.}
+\label{tab:consumo2}
+\end{table}
+\end{center}
+
+\par Para a alimentação dos componentes, vão ser utilizadas tensões contínuas de 5 V e 12 V. A bateria a ser utilizada será de 12V, já que a maior tensão dentre os equipamentos.
+
+\par Com base na tabela \ref{tab:consumo2}, o somatório de potências do sistema é de 113,86W; porém, o valor utilizado de 2 horas e 30 minutos será usado apenas para o módulo, o ignitor e os três atuadores funcionam apenas nos primeiros minutos do lançamento. Por isso para calcular a potência destes será usado o tempo de 15 minutos.
+
+\par Para o módulo:
+\begin{equation}
+    2,50W \times 2,50h = 6,25 Wh
+\end{equation}
+
+\par Para ignitor e atuadores:
+
+\begin{equation}
+    111,36W \times 0,25h = 27,84 Wh
+\end{equation}
+
+\par A potência total consumida pela base é :
+
+\begin{equation}
+    6,25Wh + 27,84Wh = 34,09 Wh
+\end{equation}
+
+\par Essa será a energia necessária consumida para a autonomia especificada. Por segurança será considerado o valor de 40 Wh.
+Pela Lei de Ohm temos:
+
+\begin{equation}
+   I =  \frac{P}{V}
+   \end{equation}
+   
+   \begin{equation}
+      I =  \frac{34,09}{12}
+   \end{equation}
+   
+  \begin{equation}   
+   I = 3,33 Ah
+ \end{equation}
+
+\section{Baterias}
+\label{sec:baterias}
+
+\par As duas baterias serão de 12V, já que esta é a maior tensão dentre todos os equipamentos nos dois sistemas.
+
+\par Dentre os tipos mais comuns de baterias no mercado, estão as de chumbo-ácido e de íons de lítio. 
+
+\par A bateria de chumbo-ácido é a mais comum, é comercializada há mais tempo e requer pouca manutenção. Esse modelo não possui efeito memória, que diminui a capacidade de carga. Porém, o chumbo, além de ser tóxico, possui baixa densidade de energia,  o que limita sua aplicação a sistemas portáteis leves \cite{baterias}.
+
+\par As baterias de íons de lítio têm como componente principal o lítio, que é um metal leve e com grande potencial eletroquímico, o que proporciona uma grande densidade de energia. Esse tipo de bateria também não possui efeito memória, importante em sistemas que sofrerão cargas e descargas frequentemente. Porém, essa tecnologia é mais recente, e o custo das baterias de íons de lítio é mais elevado \cite{baterias}. 
+
+\subsection{Sistema de controle - maleta} 
+
+\par Para a bateria do sistema de controle, em formato de maleta, buscou-se no mercado o tipo de bateria mais compacto possível de forma a atender a carga dimensionada, o modelo mais adequado encontrado foi o modelo de baterias de notebook, que é de íons de lítio. 
+
+\par De acordo com o dimensionamento, a potência consumida é de 75Wh. Por questões de segurança será considerada uma descarga máxima de 80\%, sendo assim a capacidade da bateria será:
+
+Capacidade em Wh
+\begin{equation}
+    75/0,80 = 93,75 Wh
+\end{equation}
+
+\par A capacidade necessária para esse sistema é de 93,75 Wh. Foi selecionada uma bateria da fabricante Dell, de 9 células e capacidade de 97 Wh, com as características a seguir:
+
+\begin{itemize}
+    \item Peso: 508,02 g
+    \item Dimensões
+    \begin{itemize}
+        \item Profundidade: 71,79 mm 
+        \item Altura: 20,00 mm 
+        \item Largura: 214,00 mm  
+    \end{itemize}
+\end{itemize}
+
+
+\par Na figura \ref{fig:bateriamaleta} é apresentada a bateria selecionada para a maleta.
+
+\begin{figure}[!h]
+	\centering
+		\includegraphics[keepaspectratio=true,scale=1]{figuras/bateria_maleta.jpg}
+	\caption{Bateria selecionada para o sistema de controle. Fonte: \cite{figura_bateria_maleta}} 
+	\label{fig:bateriamaleta}
+	\end{figure}
+
+\subsection{Sistema da base de lançamento} 
+
+\par A capacidade calculada para o sistema da base de lançamento foi de 3,33 Ah. De acordo com o fabricante a capacidade da bateria deve ser mantida entre 50\% - 60\%, por segurança e de forma a prolongar a vida útil do equipamento. Considerando então uma descarga máxima de 40\% a capacidade da bateria será:
+
+\par Capacidade em Ah
+\begin{equation}
+     3,33/0,40 = 8,33 Ah
+\end{equation}
+
+\par A capacidade necessária para esse sistema é de 8,33 Ah, a bateria selecionada deve ter capacidade de 9 a 10 Ah. Como mencionado anteriormente, as baterias mais comuns no mercado são de chumbo-ácido e de lítio. Dessa forma, buscou-se fabricantes que possuíssem os dois tipos de bateria, com a capacidade necessária para o sistema, para realizar uma comparação e selecionar a mais adequada.
+
+\par Durante as pesquisas encontrou-se informações mais completas do fabricante \textit{Unipower}, esse fabricante possui um modelo de bateria de chumbo-ácido de 12V e 9Ah e um modelo de lítio, de 12V e 10Ah. Ambas as baterias possuem as mesmas dimensões $(100mm \times 151mm \times 65mm)$, porém, a bateria de chumbo-ácido pesa 2,5 kg enquanto a bateria de lítio pesa 1,5 kg. Como o sistema deve ser portátil é importante que ele seja o mais leve e compacto possível, dessa forma foi escolhido o modelo de lítio, que é mais leve e tem maior capacidade. O fabricante \textit{Unipower} trabalha com um tipo específico de baterias de íons de lítio, as baterias de lítio ferro fosfato.
+
+\par A bateria selecionada é a Bateria Lítio Ferro Fosfato - LiFePO4, modelo UPLFP12-10.  Na figura \ref{fig:bateriabase} é apresentada a bateria selecionada para a base de lançamento. 
+
+
+\begin{figure}[!h]
+	\centering
+	\label{bateria_base}
+		\includegraphics[keepaspectratio=true,scale=0.4]{figuras/bateria_base.jpg}
+	\caption{Bateria selecionada para a base de lançamento. }
+	{\footnotesize Fonte: \cite{datasheet_bateria}}
+	\label{fig:bateriabase}
+\end{figure}
+
+
+
+\section{Regulador de tensão}
+
+\par Como as fonte de tensão são de 12V, serão utilizados módulos “\textit{step down}” para regular as tensões direcionadas para alguns componentes do sistema. No projeto, será utilizado o módulo regulador de tensão modelo LM2596 apresentado na figura \ref{fig:regulador tensao}, pois este possui uma ampla faixa de tensões de entrada e pode ser regulado para uma tensão específica de saída com uma boa eficiência \cite{datasheet_regulador}.
+
+\par A faixa de tensão utilizada será de 5V, de acordo com a necessidade de cada dispositivo eletrônico no sistema.
+
+\begin{figure}[!h]
+	\centering
+	\label{regulador_tensão}
+		\includegraphics[keepaspectratio=true,scale=1]{figuras/regulador_de_tensão.jpg}
+	\caption{Regulador de tensão modelo LM2596.}
+	\label{fig:regulador tensao}
+\end{figure}
+
+\section{Funcionamento do sistema de alimentação}
+
+\par A partir da definição de todos os equipamentos é possível visualizar o funcionamento de cada sistema de alimentação.  
+
+\par O diagrama em blocos do sistema de controle pode ser observado na figura \ref{fig:bifilarmaleta}
+
+\begin{figure}[H]
+	\centering
+		\includegraphics[keepaspectratio=true,scale=0.6]{figuras/1_diagrama_bifilar_da_maleta.png}
+	\caption{Diagrama bifilar do sistema de controle - maleta.}
+	\label{fig:bifilarmaleta}
+\end{figure}
+
+\par Nesse sistema a bateria alimenta diretamente a Placa de Circuito Interno (PCI) da maleta de controle. Nessa placa estão dispostas todas as conexões de alimentação e de dados com relação a tela e ao \textit{Single Board Computer}, o regulador de tensão está incluso na placa. Entre a bateria e a placa há um botão interruptor, de forma a ligar ou desligar o sistema como um todo.
+
+\par O diagrama bifilar do sistema da base de lançamento pode ser observado na figura \ref{fig:bifilarbase}
+
+\begin{figure}[!h]
+	\centering
+		\includegraphics[keepaspectratio=true,scale=0.6]{figuras/1_diagrama_bifilar_base_de_lançamento.png}
+	\caption{Diagrama bifilar da base de lançamento.}
+	\label{fig:bifilarbase}
+\end{figure}
+
+\par No sistema da base de lançamento a bateria alimenta diretamente o conector \textit{jack} fêmea, de saída da alimentação. Por questões de segurança a bateria não deve ficar no local de conexão do ignitor e demais atuadores do lançamento, estes dois sistemas devem ficar a aproximadamente dois metros de distância. Por essa razão, um cabo deve conectar os sistemas, por meio de conectores \textit{jack}, para realizar a alimentação dos atuadores do lançamento.
+
+\par As conexões de dados e de alimentação dos atuadores das válvulas, do desengate e do ignitor são realizadas por meio da PCI da base de lançamento.
+
+\par O diagrama unifilar do sistema de carregamento das baterias pode ser observado na figura \ref{fig:diagrama_unifilar_01} do Apêndice \ref{diag_eletrico}.
+
+\section{Carregador de bateria}
+\label{sec:carregador}
+
+\par A solução inicial para o sistema consistia em realizar o carregamento da bateria \textit{off grid}, ou seja, sem conexão com a rede elétrica, a partir do uso de placas fotovoltaicas. Porém, ao analisar as condições de operação do sistema, em especial o tempo de operação, que é previsto para no máximo 2 horas, concluiu-se que a solução mais adequada seria realizar o carregamento \textit{on grid}, conectado à rede elétrica, a partir de um carregador de bateria, a ser projetado.
+
+\par Dessa forma, as baterias, tanto da maleta quanto da base, serão levada com carga completa até o local de lançamento, todo o sistema poderá ser alimentado a partir delas, e, ao retornar para um local com conexão à rede elétrica, as baterias poderão ser recarregadas, e o sistema estará pronto para o próximo uso.
+
+\par Como as duas baterias são de Íon-Lítio, será projetado um único carregador que seja compatível com as especificações técnicas das duas baterias usadas no projeto, a tensão de saída deve ser no máximo de 14,6V e a corrente máxima de saída 10A.
+
+\subsection{Fonte de Alimentação}
+
+\par A fonte de alimentação será a  responsável por entregar a tensão e a corrente necessária para carregar as duas baterias do sistema, como o carregador será ligado à rede elétrica, foi projetado um circuito capaz de converter corrente alternada (rede elétrica) para corrente contínua (usada no projeto) e fazer a redução de tensão (no caso, de 110/220V para 30V). Para isso, foi inserido um transformador, uma chave seletora de tensão HH e um retificador de onda completa.
+
+\subsubsection{Transformador}
+    
+\par Um transformador é constituído basicamente de dois enrolamentos onde o fluxo magnético, variável, produzido em um age sobre o outro. O enrolamento no qual a fonte é aplicada é o primário do transformador e o enrolamento onde a carga é conectada é o secundário \cite{transformadores}.
+
+\par Para o projeto, deseja-se a utilização de um transformador de tensão (com \textit{center-tapped}), que será responsável por abaixar a tensão. Em nosso caso, a tensão de entrada será a tensão fornecida pela rede, que poderá ser escolhida pelo usuário por meio da chave seletora de tensão e pode ser de 110V ou 220V alternada, e a tensão de saída será a tensão desejada para o funcionamento do projeto, que será de 30V, ainda alternada na saída do transformador. O transformador escolhido é apresentado abaixo na figura \ref{transformador1} .
+
+\begin{figure}[H]
+	\centering
+		\includegraphics[keepaspectratio=true,scale=0.5]{figuras/transformador1.JPG}
+	\caption{Transformador 30+30V 1A Bivolt. Fonte: \cite{HUNION}}
+	\label{transformador1}
+\end{figure}
+
+
+\subsubsection{Retificador de onda completa}
+
+\par Como a tensão na saída do transformador é alternada é necessário um retificador para torná-la contínua, o Retificador de onda completa consiste no uso de 2 diodos acoplados ao transformador que contenha \textit{center-tapped}, para garantir a retificação de onda completa. 
+
+\par Os diodos são dispositivos eletrônicos que permitem a passagem de corrente elétrica em apenas um sentido. Eles só permitem a passagem de corrente elétrica quando esta é polarizada diretamente, ou seja, quando o polo positivo da fonte entra em contato com o polo positivo do diodo \cite{retificador}. No circuito, o diodo funciona de acordo com a figura \ref{fig:retificador}
+
+\begin{figure}[H]
+	\centering
+		\includegraphics[keepaspectratio=true,scale=0.5]{figuras/retificador_completo.JPG}
+	\caption{Esquemático de um retificador de onda completa. Fonte: \cite{retificador}}
+	\label{fig:retificador}
+\end{figure}
+
+\subsection{Circuito de carregamento}
+\label{sec:carregador}
+
+\par O carregador de baterias de lítio íon é um dispositivo limitador de tensão similar ao carregador de baterias de chumbo-ácido. A diferença está em uma maior tensão por célula, uma tolerância de tensão menor e a ausência de carga de flutuação ou pulsante quando a carga completa é alcançada \cite{bateria_litio}.
+
+\par O tempo de carga de todas as baterias de Lítio-Íon, quando carregadas a uma corrente inicial de 1A, é de aproximadamente 3 horas. A bateria permanece fria durante a carga. A carga completa é alcançada depois que a tensão alcança o limiar de tensão superior e a corrente ter caído e se igualado a 3\% da corrente de carga nominal. Na figura \ref{fig:curvacarga}, é mostrada a curva de carga de uma bateria de Lítio íon.
+
+\begin{figure}[!h]
+	\centering
+		\includegraphics[keepaspectratio=true,scale=0.5]{figuras/Curva_carga.JPG}
+	\caption{Curva de carga da bateria de Lítio íon. Fonte: \cite{bateria_litio}}
+	\label{fig:curvacarga}
+\end{figure}
+
+\par Baterias de lítio íon são projetadas para operar seguramente dentro da sua tensão normal de operação, mas tornam-se cada vez mais instáveis se carregadas em voltagens maiores. Por esse motivo, é importante que haja circuitos internos de controle de tensão que interrompem a bateria em subtensão ou sobre tensão \cite{bateria_litio}.
+
+\par Foi criado, usando o software Proteus, o circuito de carregamento das baterias (já inserida a fonte de alimentação). O apêndice \ref{diag_eletrico} contém o desenho do circuito criado. Nas figuras \ref{fig:bateriatensao} e \ref{fig:bateriacorrente} são apresentados os testes de simulação do circuito contendo as medições de tensão e corrente.
+
+\begin{figure}[!h]
+	\centering
+		\includegraphics[keepaspectratio=true,scale=0.5]{figuras/Medição - Tensão.PNG}
+	\caption{Medição de tensão no circuito carregador. Fonte: \cite{retificador}}
+	\label{fig:bateriatensao}
+\end{figure}
+
+\begin{figure}[!h]
+	\centering
+		\includegraphics[keepaspectratio=true,scale=0.5]{figuras/Medição - Corrente.PNG}
+	\caption{Medição de corrente no circuito carregador.}
+	\label{fig:bateriacorrente}
+\end{figure}
+
+\par Observando as medições, é possível comprovar que, ao final do circuito, a bateria recebe uma tensão de 13.6V e uma corrente de 1A, capaz então de recarregá-la até 12V. O circuito de carregamento faz o controle da tensão para manter a carga, caso, depois de cheia, se a bateria perder a carga, o carregador reativa-se até ficar novamente com a carga completa. Desse modo, a bateria pode estar ligada de forma permanente ao carregador, mantendo a carga completa sem nenhum dano a bateria ou ao circuito.
+
+Depois de testado o circuito de carregamento foi projetado a Placa de Circuito Impresso (PCI) do carregador de baterias com todos os dispositivos eletrônicos necessários para o funcionamento do carregador e com um conector Jack fêmea para ser a conexão entre a fonte do carregador e a maleta de controle ou a base de lançamento do projeto.
+
+O projeto da PCI do carregador foi feito usando o programa EasyEDA, nele foi montado o circuito eletrônico e adaptado para uma placa com trilhas de $2mm$ fabricadas com 2 Layers com a placa contendo uma espessura de $1.6 mm$ e peso de cobre de $1 oz$. O projeto em 2D e 3D da placa pode ser visto na figura \ref{PCI_carregador}
+
+\begin{figure}[!h]
+	\centering
+		\includegraphics[keepaspectratio=true,scale=0.8]{figuras/PCI_carregador.PNG}
+	\caption{Projeto 2D e 3D da PCI do carregador.}
+	\label{PCI_carregador}
+\end{figure}
+
+Para a confecção da placa de circuito impresso foi gerado o arquivo Gerber de cada placa de circuito impresso, sendo gerado um arquivo em formato ZIP disponível em \href{https://drive.google.com/drive/folders/1P1pQGE_zuSLOB5qd8zfESWqLDwtyoRKd?usp=sharing}{ Arquivos Gerber}. Para a visualização dos arquivos Gerber é necessário a utilização de um programa de prototipagem de placas de circuito impresso ou um visualizador desse tipo de arquivo disponível para \href{https://sourceforge.net/projects/gerbv/files/}{ \textbf{download}} no site do programa utilizado para o projeto EasyEda.
+
+Depois de desenhada a PCI do carregador é possível projetar a fonte de carregamento com todos os seus dispositivos, a tomada de força que receberá o cabo ligado na rede elétrica, a chave seletora de tensão, o transformador bivolt, a PCI e o conector jack que será usado para conectar a fonte á maleta de controle ou base de lançamento. O projeto em CAD do carregador é apresentado na seção 6.5.1, figura \ref{fig:carregador01}, figura \ref{fig:carregador02} e figura \ref{fig:carregador03}. 
+
+
+\section{Dimensionamento dos condutores}
+
+\par Para questões de dimensionamento dos condutores, o projeto será separado em três partes: carregador, maleta e base. Para determinar o diâmetro da seção transversal dos condutores utilizados no projeto, foi usada a norma NBR 5410/2004 \cite{NBR5410}. Segundo a norma, é preciso levar em conta dois parâmetros para decidir o diâmetro dos condutores: seção mínima de acordo com o método de instalação e capacidade de condução de corrente. A seção final dos condutores é dada pela maior seção entre os dois parâmetros encontrados.
+
+\par O primeiro parâmetro é obtido por meio de uma análise das condições apresentadas pela norma, de acordo com o tipo de linha e utilização do circuito. No nosso caso, serão utilizados fios de cobre. Na tabela 47 da norma, são mostrados valores mínimos para a seção, a depender da utilização do circuito. De lá, foram tirados os seguintes dados:
+
+\begin{itemize}
+    \item Circuito carregador - Tipo: Circuitos de força - Seção mínima: 2,50 $mm^2$;
+    \item Circuito maleta - Tipo: Linhas flexíveis para qualquer outra aplicação - Seção mínima: 0,75 $mm^2$
+    \item Circuito base - Tipo: Linhas flexíveis para qualquer outra aplicação - Seção mínima: 0,75 $mm^2$
+\end{itemize}
+
+\par O segundo parâmetro leva em conta a corrente de projeto corrigida. Dessa forma, para cada parte do sistema geral, ter-se-á uma seção específica de condutor, uma vez que cada ramo apresenta uma potência diferente. A corrente de projeto corrigida é calculada segundo a equação abaixo:
+
+\begin{equation}
+    I_{c} = \frac{P}{V \times f_{p} \times FCA \times FCT}
+\end{equation}
+
+\par Onde:
+
+\begin{itemize}
+    \item [--] $I_{c}$ corrente de projeto corrigida;
+    \item [--] $P$ potência requerida;
+    \item [--] $V$ Tensão requerida;
+    \item [--] $f_{p}$ fator de potência;
+    \item [--] $FCA$ fator de correção de agrupamento;
+    \item [--] $FCT$  fator de correção de temperatura.
+\end{itemize}
+
+\par Os fatores de correção a serem adotados para a determinação da corrente demandada em cada seção do circuito foram:
+
+\begin{itemize}
+    \item Considerando que o lançamento acontece durante o dia em locais abertos, será considerada para a maleta e a base uma temperatura de 40ºC, um pouco mais alta que a ambiente, para segurança do projeto. De acordo com a tabela 40 da norma esta temperatura retorna um valor de FCT = 0,91 ;
+    \item Será desconsiderado o agrupamento dos circuitos, levando o fator de correção por agrupamento a um valor unitário; 
+    \item Será considerado um fator de potência unitário.
+\end{itemize}
+
+
+\par Para cada parte do projeto, a corrente corrigida será:
+
+\subsection{Circuito carregador}
+    Para o fluxo rede elétrica - fonte:
+\begin{equation}
+    I_{c} = \frac{1927,65W}{220V \times 1 \times 1 \times 1} = 8,76A
+\end{equation}
+Pela NBR 5410 tabela 37 a seção adequada é $0,50mm^2$
+
+    Para o fluxo fonte - bateria:
+\begin{equation}
+    I_{c} = \frac{60W}{30V \times 1 \times 1 \times 1} = 2,00A
+\end{equation}
+Pela NBR 5410 tabela 37 a seção adequada é $0,50mm^2$  
+
+\subsection {Circuito maleta}
+  \begin{equation}
+    I_{c} = \frac{97W}{12V \times 1 \times 1 \times 0,91} = 8,88A
+\end{equation}
+Pela NBR 5410 tabela 37 a seção adequada é $0,50mm^2$ 
+
+\subsection {Circuito base}
+  \begin{equation}
+    I_{c} = \frac{113,86W}{12V \times 1 \times 1 \times 0,91} = 10,42A
+\end{equation}
+Pela NBR 5410 tabela 37 a seção adequada é $0,75mm^2$ 
+
+
+\par Após comparar os valores calculados com os do parâmetro de seção mínima baseados na norma, é mostrado na tabela \ref{tab:condutores} a seção final dos condutores em cada uma das partes.
+
+\begin{center}
+\begin{table}[H]
+\centering
+\begin{tabular}{ |m{5cm}|m{5cm}|} 
+\hline
+\textbf{ Circuito }&\textbf{ Seção dos condutores ($mm^2$)}\\ 
+ \hline
+ Carregador & 2,50 \\ 
+ \hline
+ Maleta & 0,75 \\
+ \hline
+Base & 0,75  \\ 
+ \hline
+\end{tabular}
+\caption{Dimensionamento dos condutores do projeto.}
+\label{tab:condutores}
+\end{table}
+\end{center}
+
+
+

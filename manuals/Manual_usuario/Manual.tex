@@ -1,0 +1,95 @@
+\documentclass[a4paper,pagesize,12pt,bibtotoc,pointlessnumbers,
+normalheadings,DIV=11,twoside=false]{scrbook}
+
+% twoside, openright
+\KOMAoptions{DIV=last}
+
+\usepackage{trajan}
+ 
+\usepackage[portuguese]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage[sc]{mathpazo}
+\linespread{1.05} 
+\usepackage{verbatim} % for comments
+\usepackage{listings} % for comments
+\usepackage{indentfirst}
+\usepackage{gensymb}
+\usepackage{hyperref}
+\usepackage{multirow}
+\usepackage{enumerate}
+\usepackage{subfigure}
+\usepackage{array}
+\usepackage{varwidth}
+\usepackage{imakeidx}
+\makeindex
+\usepackage{blindtext}
+\input{structure}
+
+\newcommand{\q}[1]{>>\textit{#1}<<}
+
+\title{Manual de Montagem}   
+\author{Rocket Guidance Station} 
+\date{2020} 
+
+%=========================================
+\begin{document}
+
+\begingroup
+\thispagestyle{empty}
+\AddToShipoutPicture*{\put(0,0){\includegraphics[width=\paperwidth\linewidth]{Figuras/capa.png}}} % Image background
+\centering
+\vspace*{11.3cm}
+\par\normalfont\fontsize{35}{35}\sffamily\selectfont
+
+\endgroup
+
+
+%=========================================
+\newpage{}
+\thispagestyle {empty}
+
+\vspace*{2cm}
+
+\begin{center}
+
+	\Large{\parbox{12cm}{
+		\begin{raggedright}
+		{\Large 
+			Bem-vindo a família de produtos da Rocket Guidance Station.
+ 
+			\vspace*{1cm}
+			
+			Antes de utilizar esse sistema leia e siga atentamente todas as informações do manual
+			
+			\vspace*{1cm}
+			
+			O RGS2020A é um sistema de apoio ao lançador de foguete experimental projetado para um lançamento eficiente e seguro do seu foguete. Para o melhor desempenho do mesmo leia todas as informações sobre segurança, instruções de instalação e operação, para evitar lesões ou danos ao usuário ou ao equipamento .
+		}
+	
+		\vspace{.5cm}\hfill{RGS}
+		\end{raggedright}
+	}
+}
+\end{center}
+
+
+\tableofcontents
+
+\newpage
+\input{Editaveis/Medidas_de_seguranca.tex}
+\input{Editaveis/Memorial_descritivo.tex}
+%\input{Editaveis/Operacoes.tex}
+\input{Editaveis/Calibracao.tex}
+\input{Editaveis/Bateria.tex}
+\input{Editaveis/Interface_de_usuario.tex}
+\input{Editaveis/Cuidados_com_os_equipamentos.tex}
+\input{Editaveis/Limpeza_e_manutencao.tex}
+%\input{Editaveis/Problemas_e_solucoes.tex}
+\input{Editaveis/Informacoes_complementares.tex}
+\input{Editaveis/Garantias_e_assistencia_tecnica.tex}
+
+
+\end{document}

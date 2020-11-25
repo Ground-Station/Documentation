@@ -1,0 +1,94 @@
+\documentclass[a4paper,pagesize,12pt,bibtotoc,pointlessnumbers,
+normalheadings,DIV=11,twoside=false]{scrbook}
+
+% twoside, openright
+\KOMAoptions{DIV=last}
+
+\usepackage{trajan}
+ 
+\usepackage[portuguese]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage[sc]{mathpazo}
+\linespread{1.05} 
+\usepackage{verbatim} % for comments
+\usepackage{listings} % for comments
+\usepackage{indentfirst}
+\usepackage{gensymb}
+\usepackage{hyperref}
+\usepackage{multirow}
+\usepackage{enumerate}
+\usepackage{subfigure}
+\usepackage{array}
+\usepackage{varwidth}
+\usepackage{imakeidx}
+\makeindex
+\usepackage{blindtext}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{graphicx}
+
+\input{structure}
+
+\newcommand{\q}[1]{>>\textit{#1}<<}
+
+\title{Manual de Montagem}   
+\author{Rocket Guidance Station} 
+\date{2020} 
+
+%=========================================
+\begin{document}
+
+\begingroup
+\thispagestyle{empty}
+\AddToShipoutPicture*{\put(0,0){\includegraphics[width=\paperwidth\linewidth]{Figuras/capa.png}}} % Image background
+\centering
+\vspace*{11.3cm}
+\par\normalfont\fontsize{35}{35}\sffamily\selectfont
+
+\endgroup
+
+
+%=========================================
+\newpage{}
+\thispagestyle {empty}
+
+\vspace*{2cm}
+
+\begin{center}
+
+	\Large{\parbox{12cm}{
+		\begin{raggedright}
+		{\Large 
+			Este manual foi elaborado pela equipe Rocket Guidance Station, a fim de elucidar o processo de construção e montagem do produto proposto. 
+			\vspace*{1cm}
+			
+			Para tanto é necessário que leia-se atentamente todas as instruções de fabricação e montagem, para evitar acidentes ou a confecção errada do sistema apresentado.
+			\vspace*{1cm}
+			
+			Qualquer contribuição ou crítica que possa melhorar a qualidade deste produto ou manual será bem-vinda pela equipe.
+		}
+	
+		\vspace{.5cm}\hfill{Rocket Guidance Station}
+		\end{raggedright}
+	}
+}
+\end{center}
+
+%\pdfbookmark[0]{\contentsname}{toc}
+\tableofcontents
+%\cleardoublepage
+
+\newpage
+\input{Editaveis/hardware.tex}
+\input{Editaveis/carregador.tex}
+\input{Editaveis/maleta01.tex}
+\input{Editaveis/abastecimento.tex}
+\input{Editaveis/maleta02.tex}
+\input{Editaveis/software.tex}
+\input{Editaveis/plano_de_teste}
+
+
+\end{document}
