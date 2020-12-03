@@ -10,6 +10,7 @@ Repositório destinado à documentação do projeto
 - [Ponto de Controle 1](reports/PI2_PC1_fogueteiros.pdf)
 - [Ponto de Controle 2](reports/PI2_PC2_fogueteiros.pdf)
 - [Ponto de Controle 3](reports/PI2_PC3_fogueteiros.pdf)
+- [Diagramas Elétricos](electric-diagrams/)
 
 ## Manuais
 
